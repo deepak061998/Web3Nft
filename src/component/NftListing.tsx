@@ -27,7 +27,7 @@ const NftListing = () => {
 
   //Get Lending data from GraphQL query
   const { loading, data } = useQuery(GET_LENDINGS, {
-    variables: { skip, first },
+    variables: { skip, first, where: { collateralClaimed: true } },
   });
 
   const getNftData = async (lendingData: any) => {
