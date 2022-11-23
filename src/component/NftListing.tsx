@@ -23,6 +23,7 @@ const NftListing = () => {
   const [currentPage, setCurrrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(50);
   const [lendingData, setLendingData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //Get Lending data from GraphQL query
   const { loading, data } = useQuery(GET_LENDINGS, {
@@ -31,12 +32,13 @@ const NftListing = () => {
 
   const getNftData = async (lendingData: any) => {
     const nftDataArray: any = [];
-
+    setIsLoading(true);
     for await (const nft of lendingData) {
       const nftInfo = await getNFTDetails(nft.nftAddress, nft.tokenId);
       nftDataArray.push({ ...nft, ...nftInfo });
     }
     setLendingData(nftDataArray);
+    setIsLoading(false);
   };
 
   /**
@@ -90,7 +92,7 @@ const NftListing = () => {
           <th> Cost of Rent</th>
           <th> Action</th>
         </thead>
-        {loading ? (
+        {isLoading ? (
           "Loading ...."
         ) : (
           <tbody>

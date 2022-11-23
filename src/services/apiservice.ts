@@ -1,5 +1,5 @@
 import axios from "axios";
-const ALCHEMY_API_KEY = "kdXFS8voyZSyViq5j65Y0tCKSCivnqM5";
+const ALCHEMY_API_KEY = process.env.REACT_APP_ALCHEMY_API_KEY;
 const ALCHEMY_URL = `https://eth-mainnet.g.alchemy.com/nft/v2/${ALCHEMY_API_KEY}`;
 
 export const getNFTDetails = async (nftAddress: string, tokenId: string) => {
